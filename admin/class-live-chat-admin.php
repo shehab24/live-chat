@@ -20,7 +20,8 @@
  * @subpackage Live_Chat/admin
  * @author     Shehab Mahamud <mdshehab204@gmail.com>
  */
-class Live_Chat_Admin {
+class Live_Chat_Admin
+{
 
 	/**
 	 * The ID of this plugin.
@@ -47,7 +48,8 @@ class Live_Chat_Admin {
 	 * @param      string    $plugin_name       The name of this plugin.
 	 * @param      string    $version    The version of this plugin.
 	 */
-	public function __construct( $plugin_name, $version ) {
+	public function __construct($plugin_name, $version)
+	{
 
 		$this->plugin_name = $plugin_name;
 		$this->version = $version;
@@ -59,7 +61,8 @@ class Live_Chat_Admin {
 	 *
 	 * @since    1.0.0
 	 */
-	public function enqueue_styles() {
+	public function enqueue_styles()
+	{
 
 		/**
 		 * This function is provided for demonstration purposes only.
@@ -73,7 +76,8 @@ class Live_Chat_Admin {
 		 * class.
 		 */
 
-		wp_enqueue_style( $this->plugin_name, plugin_dir_url( __FILE__ ) . 'css/live-chat-admin.css', array(), $this->version, 'all' );
+		wp_enqueue_style($this->plugin_name, plugin_dir_url(__FILE__) . 'css/live-chat-admin.css', array(), $this->version, 'all');
+		wp_enqueue_style('bootstrap-min-css', plugin_dir_url(__FILE__) . 'css/bootstrap.min.css', array(), $this->version, 'all');
 
 	}
 
@@ -82,7 +86,8 @@ class Live_Chat_Admin {
 	 *
 	 * @since    1.0.0
 	 */
-	public function enqueue_scripts() {
+	public function enqueue_scripts()
+	{
 
 		/**
 		 * This function is provided for demonstration purposes only.
@@ -96,7 +101,56 @@ class Live_Chat_Admin {
 		 * class.
 		 */
 
-		wp_enqueue_script( $this->plugin_name, plugin_dir_url( __FILE__ ) . 'js/live-chat-admin.js', array( 'jquery' ), $this->version, false );
+		wp_enqueue_script($this->plugin_name, plugin_dir_url(__FILE__) . 'js/live-chat-admin.js', array('jquery'), $this->version, false);
+
+	}
+
+	public function lc_admin_menu_setup()
+	{
+		add_menu_page(
+			'Live Chat',
+			'Live Chat',
+			'manage_options',
+			'live-chat-real-time',
+			array($this, 'lc_menu_page_dashboard'),
+			'dashicons-tagcloud',
+			6
+		);
+
+		add_submenu_page(
+			'live-chat-real-time',
+			'Dashboard',
+			'Dashboard',
+			'manage_options',
+			'live-chat-real-time',
+			array($this, 'lc_menu_page_dashboard'),
+
+		);
+		add_submenu_page(
+			'live-chat-real-time',
+			'Settings',
+			'Settings',
+			'manage_options',
+			'lc-setting',
+			array($this, 'lc_settings_submenu'),
+
+		);
+
+
+	}
+
+
+
+	public function lc_menu_page_dashboard()
+	{
+
+		require_once plugin_dir_path(dirname(__FILE__)) . 'admin/partials/live-chat-admin-display.php';
+
+	}
+
+	public function lc_settings_submenu()
+	{
+		echo "<h1>This is submenu dashboard</h1>";
 
 	}
 

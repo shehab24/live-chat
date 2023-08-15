@@ -26,7 +26,7 @@
  */
 
 // If this file is called directly, abort.
-if ( ! defined( 'WPINC' ) ) {
+if (!defined('WPINC')) {
 	die;
 }
 
@@ -35,14 +35,24 @@ if ( ! defined( 'WPINC' ) ) {
  * Start at version 1.0.0 and use SemVer - https://semver.org
  * Rename this for your plugin and update it as you release new versions.
  */
-define( 'LIVE_CHAT_VERSION', '1.0.0' );
+define('LIVE_CHAT_VERSION', '1.0.0');
+
+if (!defined('LC_PLUGIN_URL')) {
+	define('LC_PLUGIN_URL', plugin_dir_url(__FILE__));
+}
+
+if (!defined('LC_PLUGIN_DIR_PATH')) {
+	define('LC_PLUGIN_DIR_PATH', plugin_dir_path(__FILE__));
+}
+
 
 /**
  * The code that runs during plugin activation.
  * This action is documented in includes/class-live-chat-activator.php
  */
-function activate_live_chat() {
-	require_once plugin_dir_path( __FILE__ ) . 'includes/class-live-chat-activator.php';
+function activate_live_chat()
+{
+	require_once plugin_dir_path(__FILE__) . 'includes/class-live-chat-activator.php';
 	Live_Chat_Activator::activate();
 }
 
@@ -50,19 +60,20 @@ function activate_live_chat() {
  * The code that runs during plugin deactivation.
  * This action is documented in includes/class-live-chat-deactivator.php
  */
-function deactivate_live_chat() {
-	require_once plugin_dir_path( __FILE__ ) . 'includes/class-live-chat-deactivator.php';
+function deactivate_live_chat()
+{
+	require_once plugin_dir_path(__FILE__) . 'includes/class-live-chat-deactivator.php';
 	Live_Chat_Deactivator::deactivate();
 }
 
-register_activation_hook( __FILE__, 'activate_live_chat' );
-register_deactivation_hook( __FILE__, 'deactivate_live_chat' );
+register_activation_hook(__FILE__, 'activate_live_chat');
+register_deactivation_hook(__FILE__, 'deactivate_live_chat');
 
 /**
  * The core plugin class that is used to define internationalization,
  * admin-specific hooks, and public-facing site hooks.
  */
-require plugin_dir_path( __FILE__ ) . 'includes/class-live-chat.php';
+require plugin_dir_path(__FILE__) . 'includes/class-live-chat.php';
 
 /**
  * Begins execution of the plugin.
@@ -73,7 +84,8 @@ require plugin_dir_path( __FILE__ ) . 'includes/class-live-chat.php';
  *
  * @since    1.0.0
  */
-function run_live_chat() {
+function run_live_chat()
+{
 
 	$plugin = new Live_Chat();
 	$plugin->run();

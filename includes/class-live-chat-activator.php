@@ -20,7 +20,11 @@
  * @subpackage Live_Chat/includes
  * @author     Shehab Mahamud <mdshehab204@gmail.com>
  */
-class Live_Chat_Activator {
+
+require_once LC_PLUGIN_DIR_PATH . 'includes/constants.php';
+
+class Live_Chat_Activator
+{
 
 	/**
 	 * Short Description. (use period)
@@ -29,7 +33,25 @@ class Live_Chat_Activator {
 	 *
 	 * @since    1.0.0
 	 */
-	public static function activate() {
+	public static function activate()
+	{
+
+		global $wpdb;
+		$charset_collate = $wpdb->get_charset_collate();
+		require_once ABSPATH . 'wp-admin/includes/upgrade.php';
+
+
+
+		$sql = "CREATE TABLE IF NOT EXISTS " . LC_LIVE_CHAT_TABLE . " (
+			`Id` INT NOT NULL AUTO_INCREMENT,
+			`admin_msg` LONGTEXT NOT NULL,
+			`clients_msg` LONGTEXT NOT NULL,
+			`date` TIMESTAMP NOT NULL,
+			PRIMARY KEY (`Id`)
+		) ENGINE = InnoDB $charset_collate";
+
+
+		dbDelta($sql);
 
 	}
 
