@@ -89,6 +89,7 @@ function run_live_chat()
 
 	$plugin = new Live_Chat();
 	$plugin->run();
+	
 
 }
 run_live_chat();

@@ -29,4 +29,28 @@
 	 * practising this, we should strive to set a better example in our own work.
 	 */
 
+	$(document).ready(function() {
+		$('#chatIcon').click(function() {
+		  $('#chatBox').css('display', 'block');
+		});
+	  
+		$('#closeButton').click(function() {
+		  $('#chatBox').css('display', 'none');
+		});
+	  
+		$('#sendButton').click(function() {
+		  const message = $('#messageInput').val();
+		  if ($.trim(message) !== '') {
+			const messageElement = $('<div class="message"></div>').text(message);
+			$('#chatMessages').append(messageElement);
+			$('#messageInput').val('');
+		  }
+		});
+	  });
+	  
+
+
 })( jQuery );
+
+
+

@@ -100,4 +100,10 @@ class Live_Chat_Public {
 
 	}
 
+	public function show_chat_option_on_frontend(){
+     
+		require_once plugin_dir_path(dirname(__FILE__)) . 'public/partials/live-chat-public-display.php';
+
+	}
+
 }
