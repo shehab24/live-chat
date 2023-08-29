@@ -53,6 +53,15 @@ class Live_Chat_Activator
 
 		dbDelta($sql);
 
+
+		$name_email_table = "CREATE TABLE IF NOT EXISTS " . LC_CHAT_USER_LIST_TABLE . " (
+			`Id` INT NOT NULL AUTO_INCREMENT,
+			`name` VARCHAR(255) NULL DEFAULT NULL,
+			`email` VARCHAR(255) NULL DEFAULT NULL,
+			`date` TIMESTAMP NOT NULL,
+			PRIMARY KEY (`Id`)
+		) ENGINE = InnoDB $charset_collate";
+		dbDelta($name_email_table);
 	}
 
 }

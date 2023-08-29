@@ -31,7 +31,32 @@
 
 	$(document).ready(function() {
 		$('#chatIcon').click(function() {
-		  $('#chatBox').css('display', 'block');
+		  $('.chat_form').css('display', 'block');
+		});
+
+		$('#submit_btn').click(function() {
+
+				var user_name = $("#user_name").val();
+				var user_email = $("#user_email").val();
+				
+				var data = {};
+				data['user_name'] = user_name;
+				data['user_email'] = user_email;
+				data['action'] = 'save_public_chating_user_into_database';
+				$.ajax({
+				data: data,
+				url: ajax_obj.ajax_url,
+				type: 'POST',
+				success: function(res) {
+					console.log(res);
+					$('.chat_form').css('display', 'none');
+					$('#chatBox').css('display', 'block');
+				},
+				error:function(error){
+					console.log(error);
+				}
+			});
+
 		});
 	  
 		$('#closeButton').click(function() {
@@ -46,6 +71,11 @@
 			$('#messageInput').val('');
 		  }
 		});
+
+
+	
+
+
 	  });
 	  
 

@@ -162,6 +162,8 @@ class Live_Chat
 		$this->loader->add_action('admin_enqueue_scripts', $plugin_admin, 'enqueue_styles');
 		$this->loader->add_action('admin_enqueue_scripts', $plugin_admin, 'enqueue_scripts');
 		$this->loader->add_action('admin_menu', $plugin_admin, 'lc_admin_menu_setup');
+		$this->loader->add_action('wp_ajax_save_msg_into_database_from_admin', $plugin_admin, 'save_msg_into_database_from_admin');
+		
 
 	}
 
@@ -180,6 +182,7 @@ class Live_Chat
 		$this->loader->add_action('wp_enqueue_scripts', $plugin_public, 'enqueue_styles');
 		$this->loader->add_action('wp_enqueue_scripts', $plugin_public, 'enqueue_scripts');
 		$this->loader->add_action('wp_footer', $plugin_public, 'show_chat_option_on_frontend');
+		$this->loader->add_action('wp_ajax_save_public_chating_user_into_database', $plugin_public, 'save_public_chating_user_into_database');
 
 	}
 

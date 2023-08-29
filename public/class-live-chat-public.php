@@ -74,6 +74,7 @@ class Live_Chat_Public {
 		 */
 
 		wp_enqueue_style( $this->plugin_name, plugin_dir_url( __FILE__ ) . 'css/live-chat-public.css', array(), $this->version, 'all' );
+		wp_enqueue_style( 'public-bootstrap-min-css', plugin_dir_url( __FILE__ ) . 'css/bootstrap.min.css', array(), $this->version, 'all' );
 
 	}
 
@@ -95,8 +96,13 @@ class Live_Chat_Public {
 		 * between the defined hooks and the functions defined in this
 		 * class.
 		 */
+		wp_localize_script('your-public-script', 'ajax_obj', array(
+            'ajax_url' => admin_url('admin-ajax.php'),
+            // Add more localized data here as needed
+        ));
 
 		wp_enqueue_script( $this->plugin_name, plugin_dir_url( __FILE__ ) . 'js/live-chat-public.js', array( 'jquery' ), $this->version, false );
+	
 
 	}
 
@@ -104,6 +110,26 @@ class Live_Chat_Public {
      
 		require_once plugin_dir_path(dirname(__FILE__)) . 'public/partials/live-chat-public-display.php';
 
+	}
+
+	public function save_public_chating_user_into_database(){
+		global $wpdb ;
+		$user_name = isset($_POST['user_name']) ? $_POST['user_name'] : "";
+		$user_email = isset($_POST['user_email']) ? $_POST['user_email'] : "";
+		$date = current_time( 'Y-m-d H:i:s' );
+
+		$data = array(
+			'name'=>$user_name ,
+			'email'=>$user_email ,
+			 'date'    =>$date
+		 );
+ 
+		 $success = $wpdb->insert( LC_CHAT_USER_LIST_TABLE, $data );
+ 
+		 echo $success ;
+
+
+		die();
 	}
 
 }

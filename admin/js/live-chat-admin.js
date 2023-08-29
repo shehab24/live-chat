@@ -29,4 +29,28 @@
 	 * practising this, we should strive to set a better example in our own work.
 	 */
 
+	$(document).ready(function() {
+
+		$(document).on("click" , "#admin_send_btn" , function(){
+			var admin_send_input = $("#admin_send_input").val();
+             
+			var data = {};
+			data['admin_send_input'] = admin_send_input;
+			data['action'] = 'save_msg_into_database_from_admin';
+			$.ajax({
+			 data: data,
+			 url: 'admin-ajax.php',
+			 type: 'POST',
+			 success: function(res) {
+				 console.log(res);
+			 },
+			 error:function(error){
+				 console.log(error);
+			 }
+		 });
+
+		});
+
+	});
+
 })( jQuery );

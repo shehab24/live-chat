@@ -20,6 +20,8 @@
  * @subpackage Live_Chat/admin
  * @author     Shehab Mahamud <mdshehab204@gmail.com>
  */
+require_once plugin_dir_path(dirname(__FILE__)) . 'includes/constants.php';
+
 class Live_Chat_Admin
 {
 
@@ -145,6 +147,7 @@ class Live_Chat_Admin
 	{
 
 		require_once plugin_dir_path(dirname(__FILE__)) . 'admin/partials/live-chat-admin-display.php';
+		
 
 	}
 
@@ -153,5 +156,27 @@ class Live_Chat_Admin
 		echo "<h1>This is submenu dashboard</h1>";
 
 	}
+
+	public function save_msg_into_database_from_admin(){
+	
+
+		global $wpdb ;
+
+		$admin_send_input = isset($_POST['admin_send_input']) ? $_POST['admin_send_input'] : "";
+		$date = current_time( 'Y-m-d H:i:s' );
+
+
+		$data = array(
+           'admin_msg'=>$admin_send_input ,
+		    'date'    =>$date
+		);
+
+		$success = $wpdb->insert( LC_LIVE_CHAT_TABLE, $data );
+
+		echo $success ;
+		die() ;
+	}
+
+	
 
 }
